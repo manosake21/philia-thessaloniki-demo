@@ -9,192 +9,281 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --primary:#a65d4c;
-  --secondary:#f4efe8;
-  --text:#2a2622;
-  --accent:#f4cf79;
-  --dark:#30221e;
-  --bg:#f4efe8;
+  --clr-primary:#a65d4c;
+  --clr-secondary:#f4efe8;
+  --clr-accent:#f4cf79;
+  --clr-dark:#30221e;
+  --clr-bg:#faf8f5;
   --font-heading:"Playfair Display",serif;
   --font-body:"Roboto",sans-serif;
+  --radius:0.5rem;
+  --transition:0.3s ease;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:100%;scroll-behavior:smooth;}
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+html{
+  font-size:100%;
+  scroll-behavior:smooth;
+}
 body{
   font-family:var(--font-body);
-  background:var(--bg);
-  color:var(--text);
+  background:var(--clr-bg);
+  color:var(--clr-dark);
   line-height:1.6;
 }
-a{color:inherit;text-decoration:none;}
+a{
+  color:inherit;
+  text-decoration:none;
+}
+a:focus-visible{
+  outline:2px solid var(--clr-primary);
+  outline-offset:2px;
+}
+button{
+  font:inherit;
+  cursor:pointer;
+  border:none;
+  background:none;
+}
+button:focus-visible{
+  outline:2px solid var(--clr-primary);
+  outline-offset:2px;
+}
 header{
-  background:var(--primary);
-  color:var(--secondary);
-  padding:1rem 5%;
+  background:var(--clr-primary);
+  color:var(--clr-secondary);
+  padding:1rem clamp(1rem,5vw,3rem);
   display:flex;
-  justify-content:center;
   align-items:center;
-  gap:0.5rem;
+  justify-content:space-between;
+}
+header .logo{
   font-family:var(--font-heading);
-}
-header strong{
   font-size:1.5rem;
-  letter-spacing:0.05em;
+  letter-spacing:0.04em;
 }
-header span{
-  font-size:1.2rem;
-  opacity:0.85;
+nav{
+  display:none;
+}
+nav a{
+  margin-left:1rem;
+  font-weight:500;
+}
+nav a:hover{
+  text-decoration:underline;
+}
+@media (min-width:600px){
+  nav{
+    display:block;
+  }
 }
 .hero{
-  background:url('https://images.unsplash.com/photo-1589652717521-2e0c5c5c5c5c?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+  position:relative;
+  background:linear-gradient(135deg, var(--clr-primary) 0%, #c27d6a 100%);
   color:#fff;
   text-align:center;
-  padding:4rem 5%;
-  position:relative;
+  padding:4rem clamp(1rem,5vw,3rem);
+  overflow:hidden;
 }
-.hero::after{
+.hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(166,93,76,0.7);
+  background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-size:20%;
+  opacity:0.4;
 }
-.hero > *{position:relative;z-index:1;}
 .hero h1{
   font-family:var(--font-heading);
   font-size:clamp(2.5rem,10vw,5rem);
-  margin-bottom:1rem;
+  margin-bottom:0.5rem;
 }
 .hero p{
-  font-size:1.125rem;
   max-width:45ch;
   margin:auto;
   margin-bottom:2rem;
+  font-size:1.125rem;
 }
 .cta{
   display:inline-block;
-  background:var(--accent);
-  color:var(--dark);
+  background:var(--clr-accent);
+  color:var(--clr-dark);
   padding:0.75rem 1.5rem;
   border-radius:999px;
   font-weight:500;
-  transition:background .3s;
+  transition:background var(--transition);
 }
-.cta:hover{background:#e5b85a;}
+.cta:hover,
+.cta:focus-visible{
+  background:#e5b85a;
+}
+.section{
+  padding:3rem clamp(1rem,5vw,3rem);
+}
+.section h2{
+  font-family:var(--font-heading);
+  font-size:2rem;
+  margin-bottom:1rem;
+  color:var(--clr-primary);
+  text-align:center;
+}
 .grid{
   display:grid;
   gap:1.5rem;
-  padding:3rem 5%;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 }
 .card{
   background:#fff;
-  border-radius:1rem;
+  border-radius:var(--radius);
   padding:1.5rem;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  transition:transform var(--transition);
 }
-.card h2{
+.card:hover{
+  transform:translateY(-4px);
+}
+.card h3{
   font-family:var(--font-heading);
   margin-bottom:0.5rem;
-  color:var(--primary);
+  color:var(--clr-primary);
 }
-.visit-cta{
-  background:var(--primary);
+.contact-list a{
+  color:var(--clr-primary);
+  font-weight:500;
+}
+.visit{
+  background:var(--clr-primary);
   color:#fff;
-  padding:2.5rem 5%;
   text-align:center;
+  border-radius:var(--radius);
 }
-.visit-cta h2{
-  font-family:var(--font-heading);
-  margin-bottom:1rem;
-}
-.visit-cta p{
-  max-width:45ch;
-  margin:auto;
-  margin-bottom:1.5rem;
-}
-.visit-cta a{
+.visit a{
   display:inline-block;
-  background:var(--accent);
-  color:var(--dark);
+  margin:0.5rem;
+  background:var(--clr-accent);
+  color:var(--clr-dark);
   padding:0.6rem 1.2rem;
-  border-radius:0.5rem;
-  margin:0.3rem;
-  transition:background .3s;
+  border-radius:var(--radius);
+  transition:background var(--transition);
 }
-.visit-cta a:hover{background:#e5b85a;}
+.visit a:hover,
+.visit a:focus-visible{
+  background:#e5b85a;
+}
 footer{
-  background:var(--dark);
-  color:var(--secondary);
+  background:var(--clr-dark);
+  color:var(--clr-secondary);
   text-align:center;
-  padding:2rem 5%;
+  padding:2rem clamp(1rem,5vw,3rem);
   font-family:var(--font-heading);
 }
-footer strong{
+footer .logo{
   font-size:1.4rem;
-  display:block;
   margin-bottom:0.5rem;
 }
-section#contact{
-  max-width:800px;
-  margin:2rem auto;
-  padding:0 5%;
+.back-to-top{
+  position:fixed;
+  right:1rem;
+  bottom:1rem;
+  background:var(--clr-primary);
+  color:#fff;
+  border-radius:50%;
+  width:3rem;
+  height:3rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity var(--transition),visibility var(--transition);
 }
-section#contact h2{
-  font-family:var(--font-heading);
-  margin-bottom:0.8rem;
-  color:var(--primary);
+.back-to-top.show{
+  opacity:1;
+  visibility:visible;
 }
-section#contact p{
-  font-size:1rem;
-}
-@media (max-width:600px){
-  header{flex-direction:column;}
-  .hero{padding:3rem 5%;}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    transition:none !important;
+    animation:none !important;
+  }
 }
 </style>
 </head>
 <body>
 <header>
-  <strong>PHILIA</strong>
-  <span>THESSALONIKI</span>
+  <div class="logo">PHILIA</div>
+  <nav aria-label="Κύρια πλοήγηση">
+    <a href="#about">Σχετικά</a>
+    <a href="#location">Τοποθεσία</a>
+    <a href="#contact">Επικοινωνία</a>
+  </nav>
 </header>
 
-<section class="hero" aria-label="Hero banner">
-  <h1>Made for good moments.</h1>
-  <p>Ένα friendly, polished website concept που δίνει στο brand δικό του digital χώρο πέρα από το Instagram.</p>
-  <a class="cta" href="tel:+302310262220" aria-label="Call Philia Thessaloniki">Call 2310 262220</a>
-</section>
+<main>
+  <section class="hero" aria-label="Κεντρικό μήνυμα">
+    <h1>Made for good moments.</h1>
+    <p>Ένα friendly, polished website concept που δίνει στο brand δικό του digital χώρο πέρα από το Instagram.</p>
+    <a class="cta" href="tel:+302310262220" aria-label="Καλέστε το Philia Thessaloniki">Call 2310 262220</a>
+  </section>
 
-<section class="grid" aria-label="Information cards">
-  <div class="card">
-    <h2>About</h2>
-    <p>Tell the story and personality of the place.</p>
-  </div>
-  <div class="card">
-    <h2>Visit</h2>
-    <p>Pl. Navarinou 5, Thessaloniki 546 22</p>
-  </div>
-  <div class="card">
-    <h2>Mobile first</h2>
-    <p>Clear navigation, local SEO and fast contact.</p>
-  </div>
-</section>
+  <section id="about" class="section" aria-labelledby="about-heading">
+    <h2 id="about-heading">Σχετικά</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Η Ιστορία μας</h3>
+        <p>Το Philia είναι ένας χώρος όπου η φιλικότητα συναντά την ποιότητα, δημιουργώντας στιγμές που αξίζουν να θυμάσαι.</p>
+      </article>
+      <article class="card">
+        <h3>Τι προσφέρουμε</h3>
+        <p>Πολυάριθμες επιλογές για χαλαρωτικό καφέ, φρέσκα γλυκά και φιλόξενη ατμόσφαιρα.</p>
+      </article>
+      <article class="card">
+        <h3>Αξίες</h3>
+        <p>Προτεραιότητα στην εξυπηρέτηση, την ποιότητα των προϊόντων και την άνεση των πελατών.</p>
+      </article>
+    </div>
+  </section>
 
-<section id="contact">
-  <h2>Επικοινωνία</h2>
-  <p><strong>Τηλέφωνο:</strong> <a href="tel:+302310262220">+30 231 026 2220</a></p>
-</section>
+  <section id="location" class="section" aria-labelledby="location-heading">
+    <h2 id="location-heading">Τοποθεσία</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Διεύθυνση</h3>
+        <p>Πλατεία Ναυαρίνου 5, Θεσσαλονίκη 546 22</p>
+      </article>
+      <article class="card">
+        <h3>Πώς να μας βρείτε</h3>
+        <p>Βρίσκομαστε στο κέντρο της πόλης, κοντά σε δημόσιες συγκοινωνίες και στάσεις λεωφορείων.</p>
+      </article>
+      <article class="card">
+        <h3>Χάρτης</h3>
+        <a class="cta" href="https://maps.google.com/?cid=14674263623789240323" target="_blank" rel="noopener" aria-label="Άνοιγμα στο Google Maps">Δείτε στο Google Maps</a>
+      </article>
+    </div>
+  </section>
 
-<section class="visit-cta" id="visit">
-  <h2>Μια στάση που αξίζει.</h2>
-  <p>Όταν ψάχνεις πού να πας, οι σωστές πληροφορίες κάνουν την απόφαση πιο εύκολη. Δες το σημείο και έλα να το γνωρίσεις.</p>
-  <a href="https://maps.google.com/?cid=14674263623789240323" target="_blank" rel="noopener">Δες τη διαδρομή στο Google Maps</a>
-  <a href="tel:+302310262220">Κάλεσε · 231 026 2220</a>
-</section>
+  <section id="contact" class="section" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Επικοινωνία</h2>
+    <p class="contact-list"><strong>Τηλέφωνο:</strong> <a href="tel:+302310262220">+30 231 026 2220</a></p>
+  </section>
+
+  <section class="visit section" aria-label="Κάλεσε ή βρες το Philia">
+    <h2>Μια στάση που αξίζει.</h2>
+    <p>Όταν ψάχνεις πού να πας, οι σωστές πληροφορίες κάνουν την απόφαση πιο εύκολη. Δες το σημείο και έλα να το γνωρίσεις.</p>
+    <a href="tel:+302310262220" aria-label="Καλέστε το Philia">Κάλεσε · 231 026 2220</a>
+    <a href="https://maps.google.com/?cid=14674263623789240323" target="_blank" rel="noopener" aria-label="Δείτε τη διαδρομή στο Google Maps">Δες τη διαδρομή</a>
+  </section>
+</main>
 
 <footer>
-  <strong>PHILIA</strong>
+  <div class="logo">PHILIA</div>
   <p>2310 262220</p>
 </footer>
-</body>
-</html>
+
+<button class="back-to-top" aria-label="Επιστροφή στην αρχή" id="backToTop">
+  <svg width="24" height="24" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-</body></html>
